@@ -1,4 +1,6 @@
 *.swp
 *.o
 pcaps/
+cryptopp820/
+.DS_Store
 
