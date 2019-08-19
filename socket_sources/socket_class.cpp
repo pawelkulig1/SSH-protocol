@@ -1,17 +1,66 @@
 #include "socket_class.h"
-#include <arpa/inet.h>
+#include "../host.h"
+#include <iostream>
+#include <errno.h>
 
-SocketClass::SocketClass()
+
+const sockaddr_in SocketClass::make_socket_struct()
 {
-    sock = socket(PF_INET, SOCK_STREAM, 0);
     sockaddr_in sa;
     sa.sin_family = PF_INET;
-    sa.sin_port = htons(5005);
+    sa.sin_port = htons(port);
     in_addr i_a;
-    i_a.s_addr = htonl(0x0000);
+    i_a.s_addr = Host::get_ip_address(ip);
     sa.sin_addr = i_a; 
+	return sa;
+}
 
-    conn = connect(sock, (sockaddr *) &sa, sizeof(sa));
+SocketClass::SocketClass(): SocketClass("127.0.0.1", 32768)
+{
+}
 
+SocketClass::SocketClass(std::string destination_ip): SocketClass(destination_ip, 5005)
+{
+}
 
+SocketClass::SocketClass(std::string destination_ip, int port): ip(destination_ip), port(port)
+{
+    sock = socket(PF_INET, SOCK_STREAM, 0);
+	std::cout<<"socket created" << std::endl;
+}
+
+void SocketClass::connect()
+{
+	sockaddr_in sa = make_socket_struct();
+    conn = ::connect(sock, reinterpret_cast<sockaddr *>(&sa), sizeof(sa));
+	if(conn) throw(std::system_error(
+				std::make_error_code(std::errc::connection_refused), 
+				strerror(errno)
+				));
+}
+
+ssize_t SocketClass::send(std::vector<uint8_t> data)
+{
+	uint8_t *buff = new uint8_t[data.size()]; 
+	std::memcpy(buff, data.data(), data.size());
+	ssize_t status = ::send(sock, buff, data.size(), MSG_DONTROUTE);
+	if(status == -1)
+	{
+		throw(std::system_error(std::make_error_code(std::errc::not_connected), strerror(errno)));
+	}
+	delete[] buff;
+	buff = nullptr;
+	return status;
+}
+
+std::vector<uint8_t> SocketClass::recv()
+{
+	void *buffer = new uint8_t[512];
+	ssize_t size = ::recv(sock, buffer, 512, 0);
+	uint8_t *buff_ptr = reinterpret_cast<uint8_t*>(buffer);
+	std::vector<uint8_t> ret_vec(buff_ptr, buff_ptr + size);
+	delete[] buff_ptr;
+	buff_ptr = nullptr;
+	buffer = nullptr;
+	return ret_vec;
 }
