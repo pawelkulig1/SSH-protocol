@@ -1,13 +1,11 @@
 #include "protocol_exchange.h"
 #include "../host.h"
+#include "../encryption.h"
 
 ProtocolExchange::ProtocolExchange()
 {
 	name = "ProtocolExchange";
 }
-
-ProtocolExchange::~ProtocolExchange()
-{}
 
 std::vector<uint8_t> ProtocolExchange::getPayload()
 {
@@ -25,4 +23,12 @@ std::vector<uint8_t> ProtocolExchange::getPayload()
 	return payload;
 }
 
+std::vector<uint8_t> ProtocolExchange::getFrame()
+{
+	return getPayload();
+}
+
 ProtocolExchange protocol_exchange;
+								   
+								   
+								   

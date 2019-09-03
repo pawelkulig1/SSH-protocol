@@ -4,8 +4,6 @@
 #include <string>
 #include "common.h"
 #include "../host.h"
-#include "../host.cpp"
-
 
 void get_ip_address_suite()
 {

@@ -6,7 +6,6 @@
 
 uint32_t Host::get_ip_address(std::string ip)
 {
-
 	int poz = 0; 
 	int prev_poz = 0;
 	uint8_t octets[4] = {0};
@@ -44,4 +43,14 @@ std::vector<uint8_t> Host::payload_from_hex(const std::string hex_data)
 	}
 
 	return data;
+}
+
+std::vector<uint8_t> Host::random_hex(int bytes)
+{
+	std::vector<uint8_t> ret;
+	for (int i=0;i<bytes;i++)
+	{
+		ret.push_back(0x0A);
+	}
+	return ret;
 }

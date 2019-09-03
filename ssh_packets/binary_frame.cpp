@@ -31,8 +31,6 @@ void BinaryFrame::construct_payload()
 void BinaryFrame::setPayload(const std::vector<uint8_t> payload)
 {
 	this->payload = payload;
-	prepare_frame();
-	construct_payload();
 }
 
 /*std::vector<uint8_t> BinaryFrame::getPayload() const
@@ -40,7 +38,9 @@ void BinaryFrame::setPayload(const std::vector<uint8_t> payload)
 	return payload;
 }*/
 
-std::vector<uint8_t> BinaryFrame::getFrame() const
+std::vector<uint8_t> BinaryFrame::getFrame()
 {
+	prepare_frame();
+	BinaryFrame::construct_payload();
 	return frame;
 }

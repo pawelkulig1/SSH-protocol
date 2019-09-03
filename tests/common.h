@@ -2,7 +2,8 @@
 
 #include <iostream>
 #include <iomanip>
-//#define ASSERT(x, y) (x+y)
+#include <vector>
+
 #define ASSERT(NAME, x, y) \
 	if(x != y) \
 	{ \
@@ -15,5 +16,12 @@
 	}
 
 
-#define ASSERT_VECTOR(NAME, x, y) \
-
+inline std::vector<uint8_t> empty_payload_generator(int size)
+{
+	std::vector<uint8_t> temp_vec;
+	temp_vec.reserve(size);
+	for (int i=0;i<size;i++){
+		temp_vec.push_back(0x0);
+	}
+	return temp_vec;
+}
