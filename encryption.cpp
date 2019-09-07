@@ -1,15 +1,13 @@
 #include "encryption.h"
 #include <iostream>
+#include <tuple>
 
-#define ENCRYPTION_ALGORITHM(ENUM_NAME, NAME) \
-	std::make_tuple<EncryptionAlgorithm, std::string>(EncryptionAlgorithm::ENUM_NAME, NAME) 
-
-const std::unordered_map<EncryptionAlgorithm, std::string> Encryption::algorithm_to_name = {
-	ENCRYPTION_ALGORITHM(AES_128_CBC,  "aes128-cbc"),
-	ENCRYPTION_ALGORITHM(AES_192_CBC,  "aes192-cbc"),
-	ENCRYPTION_ALGORITHM(AES_256_CBC,  "aes256-cbc"),
-	ENCRYPTION_ALGORITHM(BLOWFISH_CBC, "blowfish-cbc")
-};
+const std::unordered_map<EncryptionAlgorithm, std::string> Encryption::algorithm_to_name({
+		{EncryptionAlgorithm::AES_128_CBC,  "aes128-cbc"},
+		{EncryptionAlgorithm::AES_192_CBC,   "aes192-cbc"},
+		{EncryptionAlgorithm::AES_256_CBC,   "aes256-cbc"},
+		{EncryptionAlgorithm::BLOWFISH_CBC,  "blowfish-cbc"}
+});
 
 void Encryption::set_encryption_method(std::unique_ptr<Encryption> encr_ptr)
 {	

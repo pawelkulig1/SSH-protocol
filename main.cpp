@@ -5,6 +5,8 @@
 #include "ssh_packets/protocol_exchange.h"
 #include "ssh_packets/key_exchange_init.h"
 #include <unistd.h>
+#include <openssl/bn.h>
+#include <openssl/dh.h>
 
 int main()
 {
@@ -22,13 +24,15 @@ int main()
 	sc.send(Host::payload_from_hex(
 			"0000001406220000080000001e0000002000000000000000"	
 				));
-	//sc.recv(); // bullshit	
 	const auto vec = sc.recv();
 	std::string recv = Host::vector_to_string(vec);
 	std::string modulus = recv.substr(20, 961*2);
 	std::string base = recv.substr(20 + 961*2 + 8, 2 );
+
 	
-	for(const uint8_t byte: modulus)
+
+	
+	/*for(const uint8_t byte: modulus)
 	{
 		std::cout<<std::hex<<std::setfill('0')<<static_cast<int>(byte);
 	}
@@ -39,7 +43,7 @@ int main()
 		std::cout<<std::hex<<std::setfill('0')<<static_cast<int>(byte);
 	}
 	std::cout<<std::endl;
-	std::cout<<std::endl;
+	std::cout<<std::endl;*/
 
     return 0;
 }

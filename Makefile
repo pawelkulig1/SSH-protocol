@@ -20,7 +20,7 @@ VPATH=	ssh_packets/ \
 	  	socket_sources/ \
 		tests/
 	
-CXXFLAGS=--std=c++17 -Wall
+CXXFLAGS=--std=c++11 -Wall -lcrypto
 
 
 CXX=g++

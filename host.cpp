@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <arpa/inet.h>
 
 
 uint32_t Host::get_ip_address(std::string ip)
