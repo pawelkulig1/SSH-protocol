@@ -6,19 +6,25 @@ O_FILES=    socket_class.o \
 			protocol_exchange.o \
 			key_exchange_init.o \
 			encryption_aes128.o \
-			frame_packer.o
+			frame_packer.o \
+			byte.o \
+			big_num.o
+
 
 			
 TEST_FILES=	tests/test_host.o \
 			tests/test_frames.o \
 			tests/test_encryption.o \
-			tests/test_frame_packer.o 
+			tests/test_frame_packer.o \
+			tests/test_byte.o
+
 		
 
 
 VPATH=	ssh_packets/ \
 	  	socket_sources/ \
-		tests/
+		tests/ \
+		encryption/
 	
 CXXFLAGS=--std=c++11 -Wall -lcrypto
 
