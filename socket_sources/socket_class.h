@@ -15,6 +15,7 @@ class SocketClass
 	int protocol;
 	std::string ip = "0.0.0.0";
 	int port = 5005; //ssh port
+	constexpr static int buffer_size = 4096;
 
 	const sockaddr_in make_socket_struct();
 

@@ -55,10 +55,11 @@ ssize_t SocketClass::send(std::vector<uint8_t> data)
 
 std::vector<uint8_t> SocketClass::recv()
 {
-	void *buffer = new uint8_t[512];
-	ssize_t size = ::recv(sock, buffer, 512, 0);
+	void *buffer = new uint8_t[buffer_size];
+	ssize_t size = ::recv(sock, buffer, buffer_size, 0);
 	uint8_t *buff_ptr = reinterpret_cast<uint8_t*>(buffer);
 	std::vector<uint8_t> ret_vec(buff_ptr, buff_ptr + size);
+
 	delete[] buff_ptr;
 	buff_ptr = nullptr;
 	buffer = nullptr;

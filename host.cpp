@@ -54,3 +54,26 @@ std::vector<uint8_t> Host::random_hex(int bytes)
 	}
 	return ret;
 }
+
+
+std::string Host::vector_to_string(const std::vector<uint8_t> &vec)
+{
+	struct HexByte {
+		uint8_t low : 4,
+				high  : 4;
+	};
+	union {
+		char u_c;
+		HexByte u_hb;
+	};
+
+	std::string ret;
+	for(const char c: vec)
+	{
+		u_c = c;
+		ret.push_back(u_hb.high);
+		ret.push_back(u_hb.low);
+	}
+	return ret;
+}
+
