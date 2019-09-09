@@ -43,12 +43,13 @@ int main()
 
 	//frame server_keys(recv);
 	//server_keys.parse();
-	//SSH::BigNum p, g, pub_key, priv_key;
+	////SSH::BigNum p, g, pub_key, priv_key;
 	//p = server_keys.get_p();
 	//g = server_keys.get_g();
 	//
 	//SSH::DH dh;
-	//dh.set_pg(p, g);
+	//dh.set_p(p);
+	//dh.set_g(g);
 	//
 	//frame group_exchange_init;
 	//group_exchange_init.e = dh.get_pub();
@@ -79,7 +80,7 @@ int main()
 		std::cout<<buf<<std::endl;
 		delete[] buf;
 	}
-	DH_get0_key(dh, const_cast<const BIGNUM**>(&pub_key), const_cast<const BIGNUM**>(&priv_key));
+	//DH_get0_key(dh, const_cast<const BIGNUM**>(&pub_key), const_cast<const BIGNUM**>(&priv_key));
 	int pub_size = BN_num_bytes(pub_key);
 	const char *pub = new char[pub_size];
 	pub = BN_bn2hex(pub_key);

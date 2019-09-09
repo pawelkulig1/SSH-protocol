@@ -8,7 +8,7 @@ namespace SSH {
 class BigNum
 {
 	BIGNUM *bn;
-	void handle_error();
+	bool set = false;
 
 public:
 	bool has_to_be_freed = true;
@@ -18,8 +18,8 @@ public:
 	~BigNum();
 	
 	std::vector<Byte> get() const;
-
 	void operator=(const std::vector<Byte> &b_vec);
+	bool is_set() const;
 
 	friend std::ostream &operator<<(std::ostream &in, const BigNum &bn);
 };

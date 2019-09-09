@@ -1,5 +1,7 @@
 #include "big_num.h"
 #include <cstring>
+#include "encryption_common.h"
+
 namespace SSH {
 BigNum::BigNum()
 {
@@ -14,6 +16,7 @@ BigNum::BigNum(const std::vector<Byte> &b_vec)
 {
 	bn = BN_new();
 	this->operator=(b_vec);
+	set = true;
 }
 
 BigNum::~BigNum()
@@ -37,6 +40,7 @@ std::vector<Byte> BigNum::get() const
 
 void BigNum::operator=(const std::vector<Byte> &b_vec)
 {
+	set = true;
 	char *c = new char[b_vec.size()+1];
 	std::memcpy(c, b_vec.data(), b_vec.size());
 	c[b_vec.size()] = '\0';
@@ -46,6 +50,12 @@ void BigNum::operator=(const std::vector<Byte> &b_vec)
 		std::cout << "something went wrong: " << __func__ << std::endl;
 	delete[] c;
 }
+
+bool BigNum::is_set() const
+{
+	return set;
+}
+
 
 std::ostream &operator<<(std::ostream &in, const BigNum &bn)
 {
