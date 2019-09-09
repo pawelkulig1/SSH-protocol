@@ -16,7 +16,8 @@ TEST_FILES=	tests/test_host.o \
 			tests/test_frames.o \
 			tests/test_encryption.o \
 			tests/test_frame_packer.o \
-			tests/test_byte.o
+			tests/test_byte.o \
+			tests/test_big_num.o
 
 		
 

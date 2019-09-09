@@ -3,6 +3,7 @@ extern void main_frames_test();
 extern void main_encryption_test();
 extern void main_frame_packer_test();
 extern void main_byte_test();
+extern void main_big_num_test();
 #include <iostream>
 
 int main()
@@ -12,6 +13,7 @@ int main()
 	main_encryption_test();
 	main_frame_packer_test();
 	main_byte_test();
+	main_big_num_test();
 	return 0;
 }
 
