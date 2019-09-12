@@ -15,7 +15,7 @@ class Encryption
 {
 	std::unique_ptr<Encryption> encr_ptr;
 	EncryptionAlgorithm current_encryption_method;
-	const static std::unordered_map<EncryptionAlgorithm, std::string> algorithm_to_name;
+	//const static std::unordered_map<EncryptionAlgorithm, std::string> algorithm_to_name;
 
 public:
 	void set_encryption_method(std::unique_ptr<Encryption> encr_ptr);

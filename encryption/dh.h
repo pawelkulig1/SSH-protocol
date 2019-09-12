@@ -1,5 +1,5 @@
 #pragma once
-#include "BigNum.h"
+#include "big_num.h" 
 #include <openssl/dh.h>
 
 namespace SSH {
@@ -14,13 +14,13 @@ class DiffieHellman
 	DH *dh;
 
 public:
-	Dh();
+	DiffieHellman();
 	void set_p(const BigNum &p);
 	void set_q(const BigNum &q);
-	BigNum &get_p() const;
-	BigNum &get_q() const;
+	BigNum get_p() const;
+	BigNum get_q() const;
 	void generate_keys();
-	BigNum &get_pub() const;
-	BigNum &get_priv() const;
+	BigNum get_pub() const;
+	BigNum get_priv() const;
 };
 } //namespace SSH

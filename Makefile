@@ -8,8 +8,8 @@ O_FILES=    socket_class.o \
 			encryption_aes128.o \
 			frame_packer.o \
 			byte.o \
-			big_num.o
-
+			big_num.o \
+			dh.o
 
 			
 TEST_FILES=	tests/test_host.o \
@@ -27,7 +27,7 @@ VPATH=	ssh_packets/ \
 		tests/ \
 		encryption/
 	
-CXXFLAGS=--std=c++11 -Wall -lcrypto
+CXXFLAGS=--std=c++11 -Wall -L/usr/local/opt/openssl/lib -I/usr/local/opt/openssl/include -lcrypto
 
 
 CXX=g++

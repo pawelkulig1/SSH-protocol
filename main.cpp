@@ -13,7 +13,7 @@
 
 int main()
 {
-    SocketClass sc("0.0.0.0", 22);
+    SocketClass sc("172.17.0.2", 22);
 	sc.connect();
 	sc.send(protocol_exchange.getFrame());
 	auto recv = sc.recv();
@@ -43,7 +43,7 @@ int main()
 
 	//frame server_keys(recv);
 	//server_keys.parse();
-	////SSH::BigNum p, g, pub_key, priv_key;
+	//SSH::BigNum p, g, pub_key, priv_key;
 	//p = server_keys.get_p();
 	//g = server_keys.get_g();
 	//

@@ -46,8 +46,6 @@ std::vector<Byte> BigNum::get() const
 
 void BigNum::operator=(const std::vector<Byte> &b_vec)
 {
-	set = true;
-
 	char *c = new char[(b_vec.size() * 2)+1];
 	int counter = 0;
 	for(int i=0;i<b_vec.size()*2;i+=2)
@@ -63,6 +61,7 @@ void BigNum::operator=(const std::vector<Byte> &b_vec)
 
 	delete[] c;
 	has_to_be_freed = false;	
+	set = true;
 }
 
 bool BigNum::is_set() const
@@ -80,4 +79,14 @@ std::ostream &operator<<(std::ostream &in, const BigNum &bn)
 	
 }
 
+BIGNUM *BigNum::get0()
+{
+	has_to_be_freed = false;
+	return bn;
+}
+
+BIGNUM *BigNum::get1()
+{
+	return bn;
+}
 } //namespace SSH
