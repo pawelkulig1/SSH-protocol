@@ -78,4 +78,12 @@ std::string Host::vector_to_string(const std::vector<uint8_t> &vec)
 	return ret;
 }
 
+uint8_t Host::byte2ascii(uint8_t ascii)
+{	
+	//if(ascii < 
+}
 
+uint8_t Host::ascii2byte(uint8_t byte)
+{
+
+}

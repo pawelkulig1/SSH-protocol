@@ -37,8 +37,11 @@ std::vector<Byte> BigNum::get() const
 	for(int i=0;i<size*2;i+=2)
 	{
 		Byte temp(c[i] - 55, c[i+1] - 55);
+		//Byte temp(c[i], c[i+1]);
 		ret_vec.push_back(temp);
+		std::cout<<" getting: "<<std::hex<<std::setfill('0')<<static_cast<int>(c[i] - 55) << "" <<static_cast<int>(c[i+1] - 55);
 	}
+	std::cout<<std::endl;
 
 	delete[] c;
 	return ret_vec;
@@ -46,16 +49,20 @@ std::vector<Byte> BigNum::get() const
 
 void BigNum::operator=(const std::vector<Byte> &b_vec)
 {
-	char *c = new char[(b_vec.size() * 2)+1];
+	char *c = new char[(b_vec.size() * 2) + 1];
 	int counter = 0;
 	for(int i=0;i<b_vec.size()*2;i+=2)
 	{
-		c[i] = b_vec[counter].high();
-		c[i+1] = b_vec[counter++].low(); 
+		c[i] = b_vec[counter].high() + 55;
+		c[i+1] = b_vec[counter++].low() + 55; 
+		std::cout<<" setting: "<<std::hex<<std::setfill('0')<<static_cast<int>(c[i] + 55) << "" <<static_cast<int>(c[i+1] + 55);
 	}
+	
+	std::cout<<std::endl;
+	//printf("%s\n", c);
 	c[b_vec.size()*2] = '\0';
 
-	unsigned long size = BN_hex2bn(&bn, "aabbcc");
+	unsigned long size = BN_hex2bn(&bn, c);
 	if(size != b_vec.size()*2)
 		std::cout << "something went wrong: " << __func__ << std::endl;
 
