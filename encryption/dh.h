@@ -15,12 +15,15 @@ class DiffieHellman
 
 public:
 	DiffieHellman();
-	void set_p(const BigNum &p);
-	void set_q(const BigNum &q);
+	//DiffieHellman(const DiffieHellman &df2);
+	void set_p(const BigNum &g);
+	void set_g(const BigNum &q);
 	BigNum get_p() const;
-	BigNum get_q() const;
+	BigNum get_g() const;
 	void generate_keys();
 	BigNum get_pub() const;
 	BigNum get_priv() const;
+	void set_priv(BigNum &priv);
+	void set_pub(BigNum &pub);
 };
 } //namespace SSH

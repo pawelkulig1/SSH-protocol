@@ -20,9 +20,11 @@ public:
 	std::vector<Byte> get() const;
 	void operator=(const std::vector<Byte> &b_vec);
 	void operator=(const std::string &hex_number);
+	void operator=(const BigNum &bn2);
 	bool is_set() const;
 	BIGNUM *get0();
 	BIGNUM *get1();
+	BIGNUM **get0_ptr();
 
 
 	friend std::ostream &operator<<(std::ostream &in, const BigNum &bn);

@@ -2,6 +2,7 @@
 #include <cstring>
 #include "encryption_common.h"
 #include <iomanip>
+#include "../host.h"
 
 namespace SSH {
 BigNum::BigNum()
@@ -31,17 +32,19 @@ BigNum::~BigNum()
 std::vector<Byte> BigNum::get() const
 {
 	int size = BN_num_bytes(bn);
-	char *c = new char[size];
+	//std::cout<<"get(), size: " << size << std::endl;
+	char *c = new char[size*2];
 	c = BN_bn2hex(bn);
+	printf("%s\n", c);
 	std::vector<Byte> ret_vec;
 	for(int i=0;i<size*2;i+=2)
 	{
-		Byte temp(c[i] - 55, c[i+1] - 55);
+		Byte temp(Host::ascii2byte(c[i]), Host::ascii2byte(c[i+1]));
 		//Byte temp(c[i], c[i+1]);
 		ret_vec.push_back(temp);
-		std::cout<<" getting: "<<std::hex<<std::setfill('0')<<static_cast<int>(c[i] - 55) << "" <<static_cast<int>(c[i+1] - 55);
+		//std::cout<<" getting: "<<std::hex<<std::setfill('0')<<static_cast<int>(Host::ascii2byte(c[i])) << "" <<static_cast<int>(Host::ascii2byte(c[i+1]));
 	}
-	std::cout<<std::endl;
+	//std::cout<<std::endl;
 
 	delete[] c;
 	return ret_vec;
@@ -53,16 +56,17 @@ void BigNum::operator=(const std::vector<Byte> &b_vec)
 	int counter = 0;
 	for(int i=0;i<b_vec.size()*2;i+=2)
 	{
-		c[i] = b_vec[counter].high() + 55;
-		c[i+1] = b_vec[counter++].low() + 55; 
-		std::cout<<" setting: "<<std::hex<<std::setfill('0')<<static_cast<int>(c[i] + 55) << "" <<static_cast<int>(c[i+1] + 55);
+		c[i] = Host::byte2ascii(b_vec[counter].high());
+		c[i+1] = Host::byte2ascii(b_vec[counter++].low());
+		//std::cout<<" setting: "<<std::hex<<std::setfill('0')<<static_cast<int>(c[i]) << "" <<static_cast<int>(c[i+1]);
 	}
 	
-	std::cout<<std::endl;
+	//std::cout<<std::endl;
 	//printf("%s\n", c);
 	c[b_vec.size()*2] = '\0';
 
 	unsigned long size = BN_hex2bn(&bn, c);
+	//std::cout<<"operator= vec, size: " << size << std::endl;
 	if(size != b_vec.size()*2)
 		std::cout << "something went wrong: " << __func__ << std::endl;
 
@@ -70,6 +74,23 @@ void BigNum::operator=(const std::vector<Byte> &b_vec)
 	has_to_be_freed = false;	
 	set = true;
 }
+
+void BigNum::operator=(const std::string &hex_number)
+{
+	unsigned long size = BN_hex2bn(&bn, hex_number.c_str());
+	if(size != hex_number.size())
+		std::cout << "something went wrong: " << __func__ << "std::string " << size << std::endl;
+	has_to_be_freed = false;	
+	set = true;
+}
+
+void BigNum::operator=(const BigNum &bn2)
+{
+	bn = BN_dup(bn2.bn);
+	has_to_be_freed = false;	
+	set = true;
+}
+
 
 bool BigNum::is_set() const
 {
@@ -80,10 +101,9 @@ std::ostream &operator<<(std::ostream &in, const BigNum &bn)
 {
 	for(const Byte b: bn.get())
 	{
-		in << b.get() << " ";
+		in << b.get_str() << " ";
 	}
 	return in;
-	
 }
 
 BIGNUM *BigNum::get0()
@@ -96,4 +116,11 @@ BIGNUM *BigNum::get1()
 {
 	return bn;
 }
+
+BIGNUM **BigNum::get0_ptr()
+{
+	has_to_be_freed = false;
+	return &bn;
+}
+
 } //namespace SSH

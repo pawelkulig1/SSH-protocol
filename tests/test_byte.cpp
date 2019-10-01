@@ -64,10 +64,39 @@ void payload_set_high_low_suite()
 	}
 }
 
+void get_str_suite()
+{
+	const std::string name = __func__;
+	std::cout << std::endl << name << std::endl;
+	std::vector<Byte> test_vec = {
+		Byte(0xFF),
+		Byte(0xF0),
+		Byte(0x0F),
+		Byte(0xAB),
+		Byte(0x77),
+		Byte(0x00)
+	};
+	std::vector<std::string> out_vec = {
+		"FF",
+		"F0",
+		"0F",
+		"AB",
+		"77",
+		"00"
+	};
+
+	for (int i=0;i<test_vec.size();i++)
+	{
+		ASSERT(out_vec[i], test_vec[i].get_str(), out_vec[i]);
+	}
+
+}
+
 void main_byte_test()
 {
 	std::cout << std::endl << "============================== " << __func__  << " ==============================" <<  std::endl;
 	get_high_suite();
 	get_low_suite();
 	payload_set_high_low_suite();
+	get_str_suite();
 }

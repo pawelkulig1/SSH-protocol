@@ -43,6 +43,10 @@ run: $(O_FILES) main.cpp
 tests: $(O_FILES) $(TEST_FILES) tests/main.cpp
 	$(CXX) tests/main.cpp $(O_FILES) $(TEST_FILES) -o tests/tests.o $(CXXFLAGS)
 
+poc: $(O_FILES) main.cpp
+	$(CXX) experiments/poc.cpp $(O_FILES) $(CXXFLAGS) -o experiments/poc.o
+
+
 clean:
 	rm *.o && rm tests/*.o
 

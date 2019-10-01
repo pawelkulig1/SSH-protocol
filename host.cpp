@@ -78,12 +78,33 @@ std::string Host::vector_to_string(const std::vector<uint8_t> &vec)
 	return ret;
 }
 
-uint8_t Host::byte2ascii(uint8_t ascii)
+uint8_t Host::byte2ascii(uint8_t byte)
 {	
-	//if(ascii < 
+	//uint8_t ascii = 0;
+	if(byte < 10)
+	{
+		return byte + 48;
+	}
+	if(byte < 16)
+	{
+		return byte + 55;
+	}
+	std::cout<<byte<<std::endl;
+	throw(std::system_error(std::make_error_code(std::errc::argument_out_of_domain), __FUNCTION__));
 }
 
-uint8_t Host::ascii2byte(uint8_t byte)
+uint8_t Host::ascii2byte(uint8_t ascii)
 {
+	//Byte byte = 0;
+	if(ascii >= 48 && ascii <= 57)
+	{
+		return ascii - 48;
+	}
+	if(ascii >= 65 && ascii <= 70)
+	{
+		return ascii - 55;
+	}
+	std::cout<<ascii<<std::endl;
+	throw(std::system_error(std::make_error_code(std::errc::argument_out_of_domain), __FUNCTION__));
 
 }
