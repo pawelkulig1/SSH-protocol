@@ -4,10 +4,13 @@
 
 
 KeyExchangeInit::KeyExchangeInit()
-{}
+{
+	cookie = Host::random_hex(16);
+}
 
 KeyExchangeInit::KeyExchangeInit(std::vector<EncryptionAlgorithm> algorithms)
 {
+	cookie = Host::random_hex(16);
 	set_requested_algorithms(algorithms);
 }
 
@@ -29,7 +32,7 @@ std::vector<EncryptionAlgorithm> KeyExchangeInit::get_requested_algorithms() con
 	return requested_algorithms;
 }
 
-std::vector<uint8_t> KeyExchangeInit::getPayload()
+Payload KeyExchangeInit::getPayload()
 {
 	return payload;
 }

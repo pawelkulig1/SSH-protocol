@@ -21,18 +21,19 @@ uint32_t Host::get_ip_address(std::string ip)
 	return htonl(*(reinterpret_cast<uint32_t*>(octets))); //endianes
 }
 
-std::vector<uint8_t> Host::payload_from_ascii(const std::string ascii_text)
+Payload Host::payload_from_ascii(const std::string ascii_text)
 {
-	std::vector<uint8_t> data;
+	Payload data;
 	data.reserve(ascii_text.size());
 	for (const char letter: ascii_text)
-		data.push_back(static_cast<uint8_t>(letter));
+		data.next(static_cast<uint8_t>(letter));
 	return data;
 }
 
-std::vector<uint8_t> Host::payload_from_hex(const std::string hex_data)
+Payload Host::payload_from_hex(const std::string hex_data)
 {
-	std::vector<uint8_t> data;
+	//std::vector<uint8_t> data;
+	Payload data;
 	data.reserve(hex_data.size() %2 == 0 ? hex_data.size()/2 : (hex_data.size() + 1) / 2);
 	size_t size;
 	uint8_t temp;
@@ -40,18 +41,18 @@ std::vector<uint8_t> Host::payload_from_hex(const std::string hex_data)
 	{
 		temp = std::stoi(hex_data.substr(i, 1), &size, 16) << 4;
 		temp |= std::stoi(hex_data.substr(i+1, 1), &size, 16);
-		data.push_back(temp);
+		data.next(temp);
 	}
 
 	return data;
 }
 
-std::vector<uint8_t> Host::random_hex(int bytes)
+Payload Host::random_hex(int bytes)
 {
-	std::vector<uint8_t> ret;
+	Payload ret;
 	for (int i=0;i<bytes;i++)
 	{
-		ret.push_back(0x0A);
+		ret.next(0x0A);
 	}
 	return ret;
 }

@@ -53,6 +53,11 @@ ssize_t SocketClass::send(std::vector<uint8_t> data)
 	return status;
 }
 
+ssize_t SocketClass::send(const Payload &payload)
+{
+	send(payload.get_payload_vec());	
+}
+
 std::vector<uint8_t> SocketClass::recv()
 {
 	void *buffer = new uint8_t[buffer_size];
