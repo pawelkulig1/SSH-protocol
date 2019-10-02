@@ -5,7 +5,7 @@
 #include <string>
 #include "common.h"
 
-#include "../frame_packer.h"
+#include "../payload.h"
 
 
 void pack_frames_vector_suite()
@@ -23,7 +23,7 @@ void pack_frames_vector_suite()
 	
 	std::cout << std::endl << name << std::endl;
 
-	FramePacker fp;
+	Payload fp;
 	for (const auto vec: test_vec)
 	{
 		fp.next(vec.first);

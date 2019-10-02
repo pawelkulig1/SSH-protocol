@@ -2,6 +2,7 @@
 #define DEFAULT_FRAME_NAME "NULL"
 #include <vector>
 #include <string>
+#include "../payload.h"
 
 enum SSH_OPCODES
 {
@@ -24,6 +25,6 @@ class Frame
 		Frame();
 		Frame(std::string name);
 		virtual ~Frame();
-		virtual std::vector<uint8_t> getPayload()=0; // only payload
-		virtual std::vector<uint8_t> getFrame()=0;   // whole frame
+		virtual Payload getPayload()=0; // only payload
+		virtual Payload getFrame()=0;   // whole frame
 };

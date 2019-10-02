@@ -6,7 +6,7 @@ O_FILES=    socket_class.o \
 			protocol_exchange.o \
 			key_exchange_init.o \
 			encryption_aes128.o \
-			frame_packer.o \
+			payload.o \
 			byte.o \
 			big_num.o \
 			dh.o

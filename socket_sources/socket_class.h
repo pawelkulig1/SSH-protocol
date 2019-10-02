@@ -6,6 +6,7 @@
 #include <string>
 #include <cstring>
 #include <arpa/inet.h>
+#include "../payload.h"
 
 class SocketClass
 {
@@ -26,5 +27,6 @@ public:
 	SocketClass(std::string destination_ip, int port);
 	void connect();
 	ssize_t send(const std::vector<uint8_t> data);
+	ssize_t send(const Payload &payload);
 	std::vector<uint8_t> recv();
 };

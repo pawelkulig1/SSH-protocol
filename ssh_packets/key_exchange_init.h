@@ -3,12 +3,13 @@
 #include "binary_frame.h"
 #include "../encryption.h"
 #include "../host.h"
+#include "../payload.h"
 
 class KeyExchangeInit: public BinaryFrame 
 {
 	//frame structure
 	byte            opcode = SSH_OPCODES::SSH_MSG_KEXINIT;
-	byte_vec        cookie = Host::random_hex(16);
+	Payload 		cookie; //Payload(Host::random_hex(16));
 	std::string     kex_algorithms = "curve25519-sha256";
 	std::string     server_host_key_algorithms = "ecdsa-sha2-nistp256";
 	std::string     encryption_algorithms_client_to_server = "aes256-ctr";
@@ -31,7 +32,7 @@ class KeyExchangeInit: public BinaryFrame
 	void construct_payload() override;
 	void set_requested_algorithms(std::vector<EncryptionAlgorithm> requested_algorithms);
 	std::vector<EncryptionAlgorithm> get_requested_algorithms() const;
-	std::vector<uint8_t> getPayload() override;
+	Payload getPayload() override;
 	
 };
 
