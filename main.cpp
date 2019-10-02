@@ -36,7 +36,7 @@ int main()
 			"0000001406220000080000001e0000002000000000000000"	
 				));
 
-	recv = sc.recv();
+	auto recv = sc.recv();
 	
 	std::string rcv = Host::vector_to_string(recv);
 	std::string modulus = rcv.substr(20, 961*2);

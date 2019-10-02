@@ -1,4 +1,5 @@
 #include "byte.h"
+#include "host.h"
 
 Byte::Byte()
 {

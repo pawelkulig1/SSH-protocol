@@ -1,6 +1,6 @@
 #pragma once
 #include <stdint.h>
-#include "host.h"
+#include <string>
 
 class Byte
 {
