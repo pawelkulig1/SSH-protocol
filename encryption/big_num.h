@@ -2,8 +2,10 @@
 #include <openssl/bn.h>
 #include <vector>
 #include "../byte.h"
+#include "../payload.h"
 #include <ostream>
 #include <iostream>
+
 namespace SSH {
 class BigNum
 {
@@ -14,11 +16,11 @@ public:
 	bool has_to_be_freed = true;
 
 	BigNum();
-	BigNum(const std::vector<Byte> &b_vec);
+	BigNum(const Payload &b_vec);
 	~BigNum();
 	
-	std::vector<Byte> get() const;
-	void operator=(const std::vector<Byte> &b_vec);
+	Payload get() const;
+	void operator=(const Payload &b_vec);
 	void operator=(const std::string &hex_number);
 	void operator=(const BigNum &bn2);
 	bool is_set() const;

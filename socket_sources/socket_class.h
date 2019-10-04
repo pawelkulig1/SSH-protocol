@@ -28,5 +28,5 @@ public:
 	void connect();
 	ssize_t send(const std::vector<uint8_t> data);
 	ssize_t send(const Payload &payload);
-	std::vector<uint8_t> recv();
+	Payload recv();
 };

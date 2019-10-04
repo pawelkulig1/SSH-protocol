@@ -14,7 +14,7 @@ BigNum::BigNum()
 		std::cout << "something went wrong: " << __func__ << std::endl;
 }
 
-BigNum::BigNum(const std::vector<Byte> &b_vec)
+BigNum::BigNum(const Payload &b_vec)
 {
 	bn = BN_new();
 	this->operator=(b_vec);
@@ -29,35 +29,35 @@ BigNum::~BigNum()
 	}
 }
 
-std::vector<Byte> BigNum::get() const
+Payload BigNum::get() const
 {
 	int size = BN_num_bytes(bn);
 	//std::cout<<"get(), size: " << size << std::endl;
 	char *c = new char[size*2];
 	c = BN_bn2hex(bn);
-	printf("%s\n", c);
-	std::vector<Byte> ret_vec;
+	//printf("%s\n", c);
+	Payload ret_payload;
 	for(int i=0;i<size*2;i+=2)
 	{
 		Byte temp(Host::ascii2byte(c[i]), Host::ascii2byte(c[i+1]));
 		//Byte temp(c[i], c[i+1]);
-		ret_vec.push_back(temp);
+		ret_payload.next(temp);
 		//std::cout<<" getting: "<<std::hex<<std::setfill('0')<<static_cast<int>(Host::ascii2byte(c[i])) << "" <<static_cast<int>(Host::ascii2byte(c[i+1]));
 	}
 	//std::cout<<std::endl;
 
 	delete[] c;
-	return ret_vec;
+	return ret_payload;
 }
 
-void BigNum::operator=(const std::vector<Byte> &b_vec)
+void BigNum::operator=(const Payload &b_vec)
 {
 	char *c = new char[(b_vec.size() * 2) + 1];
 	int counter = 0;
 	for(int i=0;i<b_vec.size()*2;i+=2)
 	{
-		c[i] = Host::byte2ascii(b_vec[counter].high());
-		c[i+1] = Host::byte2ascii(b_vec[counter++].low());
+		c[i] = Host::byte2ascii(b_vec.at(counter).high());
+		c[i+1] = Host::byte2ascii(b_vec.at(counter++).low());
 		//std::cout<<" setting: "<<std::hex<<std::setfill('0')<<static_cast<int>(c[i]) << "" <<static_cast<int>(c[i+1]);
 	}
 	

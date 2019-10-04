@@ -58,15 +58,16 @@ ssize_t SocketClass::send(const Payload &payload)
 	return send(payload.get_payload_vec());	
 }
 
-std::vector<uint8_t> SocketClass::recv()
+Payload SocketClass::recv()
 {
 	void *buffer = new uint8_t[buffer_size];
 	ssize_t size = ::recv(sock, buffer, buffer_size, 0);
 	uint8_t *buff_ptr = reinterpret_cast<uint8_t*>(buffer);
-	std::vector<uint8_t> ret_vec(buff_ptr, buff_ptr + size);
+	Payload p = Payload(buff_ptr, size);
+	//std::vector<uint8_t> ret_vec(buff_ptr, buff_ptr + size);
 
 	delete[] buff_ptr;
 	buff_ptr = nullptr;
 	buffer = nullptr;
-	return ret_vec;
+	return p;
 }
