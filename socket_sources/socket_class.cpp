@@ -55,7 +55,20 @@ ssize_t SocketClass::send(std::vector<uint8_t> data)
 
 ssize_t SocketClass::send(const Payload &payload)
 {
-	return send(payload.get_vec());	
+	uint8_t *buff = new uint8_t[payload.size()];
+	for(int i=0;i<payload.size();i++)
+	{
+		buff[i] = payload.at(i).get();
+	}
+	ssize_t status = ::send(sock, buff, payload.size(), MSG_DONTROUTE);
+	if(status == -1)
+	{
+		throw(std::system_error(std::make_error_code(std::errc::not_connected), strerror(errno)));
+	}
+	delete[] buff;
+	buff = nullptr;
+	return status;
+	//return send(payload.get_vec());	
 }
 
 Payload SocketClass::recv()
