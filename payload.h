@@ -39,7 +39,10 @@ public:
 	void next(const uint8_t* c_str, const size_t size, const size_t bytes);
 	void next(const uint32_t data, const size_t bytes=4);
 
-	Payload get(int beg, int size) const;
+	Payload get(const int beg, const int size) const;
+
+	template <typename T>
+	T get(const int beg, const int size) const;
 
 	std::vector<Byte> 	get_payload_vec() const;
 	std::string    	 	get_payload_str() const;

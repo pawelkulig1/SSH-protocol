@@ -153,6 +153,21 @@ Payload Payload::get(int beg, int size) const
 	return Payload(raw_payload.begin() + beg, raw_payload.begin() + beg + size);
 }
 
+template <>
+int Payload::get<int>(const int beg, const int size) const
+{
+	if(size > 4){}
+		//throw(); //TODO
+	
+	int temp = 0;
+	for(int i=0;i<size;i++)
+	{
+		std::cout<<static_cast<int>(raw_payload[beg + size - i - 1].get())<<std::endl;
+		temp |= (raw_payload[beg + size - i - 1].get() << i);
+	}
+	return temp;
+}
+
 std::vector<Byte> Payload::get_payload_vec() const
 {
 	return raw_payload;

@@ -21,10 +21,19 @@ class Frame
 {
 	protected:
 		std::string name = DEFAULT_FRAME_NAME;
+		Payload raw_payload;
 	public:
+		uint32_t packet_length;
+		uint8_t padding_size;
+		uint8_t opcode;
+		
 		Frame();
 		Frame(std::string name);
+		Frame(std::string name, const Payload& payload);
+		void operator=(const Payload& payload);
+
 		virtual ~Frame();
-		virtual Payload getPayload()=0; // only payload
-		virtual Payload getFrame()=0;   // whole frame
+		virtual Payload getPayload(){} //=0 only payload
+		virtual Payload getFrame(){}   //=0 whole frame
+		virtual void parse();
 };
