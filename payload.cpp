@@ -158,19 +158,34 @@ int Payload::get<int>(const int beg, const int size) const
 {
 	if(size > 4){}
 		//throw(); //TODO
+	if(beg + size - 1 >= raw_payload.size())
+	{
+		//throw();
+	}	
 	
 	int temp = 0;
-	for(int i=0;i<size;i++)
+	for(int i=(beg + size - 1);i>=beg;i--)
 	{
-		std::cout<<static_cast<int>(raw_payload[beg + size - i - 1].get())<<std::endl;
-		temp |= (raw_payload[beg + size - i - 1].get() << i);
+		//std::cout << i << " " << beg + size - i - 1 <<" " << std::hex <<static_cast<int>(raw_payload[i].get()) << std::dec;
+		temp |= (raw_payload[i].get() << (beg + size - i - 1) * 8);
 	}
+	//std::cout<< std::endl;
 	return temp;
 }
 
-std::vector<Byte> Payload::get_payload_vec() const
+std::vector<Byte> Payload::get_vec() const
 {
 	return raw_payload;
+}
+
+std::string Payload::get_str() const
+{
+	std::string temp;
+	for(const Byte b:raw_payload)
+	{
+		temp += b.get_str();
+	}
+	return temp;
 }
 
 void Payload::reserve(const unsigned int reservation)

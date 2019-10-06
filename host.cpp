@@ -26,21 +26,19 @@ Payload Host::payload_from_ascii(const std::string ascii_text)
 	Payload data;
 	data.reserve(ascii_text.size());
 	for (const char letter: ascii_text)
-		data.next(static_cast<uint8_t>(letter));
+		data.next(Byte(letter));
 	return data;
 }
 
 Payload Host::payload_from_hex(const std::string hex_data)
 {
-	//std::vector<uint8_t> data;
 	Payload data;
 	data.reserve(hex_data.size() %2 == 0 ? hex_data.size()/2 : (hex_data.size() + 1) / 2);
 	size_t size;
-	uint8_t temp;
+	Byte temp;
 	for(int i=0;i<hex_data.size();i+=2)
 	{
-		temp = std::stoi(hex_data.substr(i, 1), &size, 16) << 4;
-		temp |= std::stoi(hex_data.substr(i+1, 1), &size, 16);
+		temp.set(std::stoi(hex_data.substr(i, 1), &size, 16), std::stoi(hex_data.substr(i+1, 1), &size, 16));
 		data.next(temp);
 	}
 

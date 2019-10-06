@@ -15,7 +15,7 @@ public:
 	Payload(const std::vector<Byte>& byte_vec);
 	Payload(const std::vector<Byte>& byte_vec, const size_t bytes);
 	Payload(const Payload &payload);
-	Payload(const Payload &payloadi, const size_t bytes);
+	Payload(const Payload &payload, const size_t bytes);
 	Payload(const std::string& str, const bool ascii=false);
 	Payload(const std::string& str, const size_t bytes, bool ascii=false);
 	Payload(const uint8_t* c_str, const size_t size);
@@ -44,8 +44,8 @@ public:
 	template <typename T>
 	T get(const int beg, const int size) const;
 
-	std::vector<Byte> 	get_payload_vec() const;
-	std::string    	 	get_payload_str() const;
+	std::vector<Byte> 	get_vec() const;
+	std::string    	 	get_str() const;
 	void reserve(const unsigned int reservation);
 	size_t size() const;
 	void clear();

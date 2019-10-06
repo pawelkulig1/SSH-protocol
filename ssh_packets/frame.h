@@ -24,8 +24,8 @@ class Frame
 		Payload raw_payload;
 	public:
 		uint32_t packet_length;
-		uint8_t padding_size;
-		uint8_t opcode;
+		uint32_t padding_size; //should be 8_t but it is not working now
+		uint32_t opcode;
 		
 		Frame();
 		Frame(std::string name);

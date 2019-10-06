@@ -55,7 +55,7 @@ ssize_t SocketClass::send(std::vector<uint8_t> data)
 
 ssize_t SocketClass::send(const Payload &payload)
 {
-	return send(payload.get_payload_vec());	
+	return send(payload.get_vec());	
 }
 
 Payload SocketClass::recv()

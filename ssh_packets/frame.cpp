@@ -1,4 +1,5 @@
 #include "frame.h"
+#include "../host.h"
 #include <iostream>
 
 Frame::Frame()
@@ -20,12 +21,9 @@ void Frame::operator=(const Payload& payload)
 
 void Frame::parse()
 {
-	packet_length 		= Host::byte2ascii(raw_payload.get<int>(0, 4));
-	std::cout<<packet_length<<std::endl;
+	packet_length 		= raw_payload.get<int>(0, 4);//Host::byte2ascii(raw_payload.get<int>(0, 4));
 	padding_size 		= raw_payload.get<int>(4, 1);
-	std::cout<<padding_size<<std::endl;
 	opcode				= raw_payload.get<int>(5, 1); 
-	std::cout<<opcode<<std::endl;
 }
 
 
