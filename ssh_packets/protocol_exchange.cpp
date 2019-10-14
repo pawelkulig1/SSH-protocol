@@ -18,7 +18,7 @@ Payload ProtocolExchange::getPayload()
 	payload.next("-", true);
 	payload.next(software_version, true);
 	payload.next(comments, true);
-	payload.next("\x0d\x0a", true);
+	//payload.next("\x0d\x0a", true);
 
 	return payload;
 }
@@ -26,6 +26,7 @@ Payload ProtocolExchange::getPayload()
 Payload ProtocolExchange::getFrame()
 {
 	getPayload();
+	payload.next("\x0d\x0a", true);
 	return payload;
 }
 

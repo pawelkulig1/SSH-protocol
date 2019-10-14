@@ -43,8 +43,11 @@ run: $(O_FILES) main.cpp
 tests: $(O_FILES) $(TEST_FILES) tests/main.cpp
 	$(CXX) tests/main.cpp $(O_FILES) $(TEST_FILES) -o tests/tests.o $(CXXFLAGS)
 
-poc: $(O_FILES) main.cpp
+poc: $(O_FILES) experiments/poc.cpp
 	$(CXX) experiments/poc.cpp $(O_FILES) $(CXXFLAGS) -o experiments/poc.o
+
+sym_enc: $(O_FILES) experiments/poc.cpp
+	$(CXX) experiments/sym_enc.cpp $(O_FILES) $(CXXFLAGS) -o experiments/sym_enc.o
 
 
 clean:

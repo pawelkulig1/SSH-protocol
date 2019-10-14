@@ -46,6 +46,7 @@ public:
 
 	std::vector<Byte> 	get_vec() const;
 	std::string    	 	get_str() const;
+	void 				print() const;
 	void reserve(const unsigned int reservation);
 	size_t size() const;
 	void clear();

@@ -188,6 +188,35 @@ std::string Payload::get_str() const
 	return temp;
 }
 
+void Payload::print() const
+{
+	std::string temp;
+	int i=0;
+	for(const Byte b:raw_payload)
+	{
+		temp += b.get_str();
+		i++;
+		
+		if(i % 16 == 0)
+		{
+			temp += "\n" + std::to_string(i) + ": ";
+			continue;
+		}
+		if(i % 8 == 0)
+		{
+			temp += "  ";
+			continue;
+		}
+		if(i % 1 == 0)
+		{
+			temp += " ";
+			continue;
+		}
+	}
+	std::cout<<temp<<std::endl;
+}
+
+
 void Payload::reserve(const unsigned int reservation)
 {
 	raw_payload.reserve(reservation);

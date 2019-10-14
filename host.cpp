@@ -103,6 +103,10 @@ uint8_t Host::ascii2byte(uint8_t ascii)
 	{
 		return ascii - 55;
 	}
+	if(ascii >= 97 && ascii <= 102)
+	{
+		return ascii - 87;
+	}
 	std::cout<<ascii<<std::endl;
 	throw(std::system_error(std::make_error_code(std::errc::argument_out_of_domain), __FUNCTION__));
 

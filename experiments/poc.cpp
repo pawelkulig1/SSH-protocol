@@ -33,9 +33,9 @@ int main()
 
 	auto server_group_exchange = sc.recv();
 	
-	auto modulus = server_group_exchange.get(10, 961);
+	auto modulus = server_group_exchange.get(10, 1025);
 	std::cout<< "modulus: "<< modulus.get_str()<<std::endl;
-	auto base = server_group_exchange.get(10 + 961 + 4, 1);
+	auto base = server_group_exchange.get(10 + 1025 + 4, 1);
 	std::cout<< "base: " << base.get_str()<<std::endl;
 
 	BigNum p, g;
@@ -75,8 +75,10 @@ int main()
 	K = dh2.get_pub();
 
 	Payload h = Payload();
-	h.next(protocol_exchange.getFrame());
-	h.next(server_protocol);
+	h.next("00000015"); //payload size
+	h.next(protocol_exchange.getPayload());
+	h.next("00000013"); // payload size
+	h.next(server_protocol.get(0, server_protocol.size() - 2));
 	//p.next(client_kex.size(), 4);
 	//p.next(SSH_OPCODES::SSH_MSG_KEXINIT, 1);
 	h.next(client_kex);
@@ -90,7 +92,7 @@ int main()
 	h.next(client_pub.get());
 	h.next(server_pub.get());
 	h.next(K.get());
-	std::cout<<h.get_str()<<std::endl;
+	h.print();
 
 
 
