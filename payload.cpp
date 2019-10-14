@@ -33,14 +33,14 @@ Payload::Payload(const Payload& payload, const size_t bytes)
 	raw_payload = payload.raw_payload;
 }
 
-Payload::Payload(const std::string& str, const bool ascii)
-{
-	next(str, ascii);
-}
+//Payload::Payload(const std::string& str, const bool ascii)
+//{
+//	next(str, ascii);
+//}
 
 Payload::Payload(const std::string& str, const size_t bytes, const bool ascii)
 {
-	next(str, ascii, bytes);
+	next(str, bytes);
 }
 
 Payload::Payload(const uint8_t *c_str, size_t size)
@@ -80,7 +80,7 @@ std::vector<Byte>::const_iterator Payload::end() const
 
 void Payload::next_zeros(const size_t bytes)
 {
-	for(int i=0;i<bytes;i++)
+	for(long unsigned int i=0;i<bytes;i++)
 	{
 		raw_payload.push_back(0x0);
 	}
@@ -115,14 +115,17 @@ void Payload::next(const std::vector<Byte>& vec, const size_t bytes)
 	raw_payload.insert(raw_payload.end(), vec.begin(), vec.end());
 }
 
-void Payload::next(const std::string& str, bool ascii)
-{
-	next(ascii ? Host::payload_from_ascii(str) : Host::payload_from_hex(str));
-}
+//void Payload::next(const std::string& str, bool ascii)
+//{
+//	next(ascii ? Host::payload_from_ascii(str) : Host::payload_from_hex(str));
+//}
 
 void Payload::next(const std::string& str, const size_t bytes, bool ascii)
 {
-	next_zeros(bytes - str.size());
+	if(bytes > 0)
+	{
+		next_zeros(bytes - str.size());
+	}
 	next(ascii ? Host::payload_from_ascii(str) : Host::payload_from_hex(str));
 }
 
@@ -148,13 +151,14 @@ void Payload::next(const uint8_t *c_str, const size_t size, const size_t bytes)
 	raw_payload.insert(raw_payload.end(), c_str, c_str + size);	
 }
 
-Payload Payload::get(int beg, int size) const
+Payload Payload::get(const long unsigned int beg, const long unsigned int size) const
 {
 	return Payload(raw_payload.begin() + beg, raw_payload.begin() + beg + size);
 }
 
+
 template <>
-int Payload::get<int>(const int beg, const int size) const
+int Payload::get<int>(const long unsigned int beg, const long unsigned int size) const
 {
 	if(size > 4){}
 		//throw(); //TODO
@@ -164,12 +168,10 @@ int Payload::get<int>(const int beg, const int size) const
 	}	
 	
 	int temp = 0;
-	for(int i=(beg + size - 1);i>=beg;i--)
+	for(long unsigned int i=(beg + size - 1);i>=beg;i--)
 	{
-		//std::cout << i << " " << beg + size - i - 1 <<" " << std::hex <<static_cast<int>(raw_payload[i].get()) << std::dec;
 		temp |= (raw_payload[i].get() << (beg + size - i - 1) * 8);
 	}
-	//std::cout<< std::endl;
 	return temp;
 }
 

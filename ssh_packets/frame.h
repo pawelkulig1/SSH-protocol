@@ -33,7 +33,7 @@ class Frame
 		void operator=(const Payload& payload);
 
 		virtual ~Frame();
-		virtual Payload getPayload(){} //=0 only payload
-		virtual Payload getFrame(){}   //=0 whole frame
+		virtual Payload getPayload()=0; // only payload
+		virtual Payload getFrame()=0; // whole frame
 		virtual void parse();
 };

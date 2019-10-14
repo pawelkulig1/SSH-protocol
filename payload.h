@@ -16,8 +16,8 @@ public:
 	Payload(const std::vector<Byte>& byte_vec, const size_t bytes);
 	Payload(const Payload &payload);
 	Payload(const Payload &payload, const size_t bytes);
-	Payload(const std::string& str, const bool ascii=false);
-	Payload(const std::string& str, const size_t bytes, bool ascii=false);
+//	Payload(const std::string& str, const bool ascii=false);
+	Payload(const std::string& str, const size_t bytes=0, bool ascii=false);
 	Payload(const uint8_t* c_str, const size_t size);
 	Payload(const uint8_t* c_str, const size_t size, const size_t bytes);
 	Payload(const std::vector<Byte>::const_iterator beg, const std::vector<Byte>::const_iterator end);
@@ -31,18 +31,18 @@ public:
 	void next(const Byte byte, const size_t bytes);
 	void next(const std::vector<Byte>& vec);
 	void next(const std::vector<Byte>& vec, const size_t bytes);
-	void next(const std::string& str, bool ascii=false);
-	void next(const std::string& str, const size_t bytes, const bool ascii=false);
+//	void next(const std::string& str, bool ascii=false);
+	void next(const std::string& str, const size_t bytes=0, const bool ascii=false);
 	void next(const Payload &payload);
 	void next(const Payload &payload, const size_t bytes);
 	void next(const uint8_t* c_str, size_t size);
 	void next(const uint8_t* c_str, const size_t size, const size_t bytes);
 	void next(const uint32_t data, const size_t bytes=4);
 
-	Payload get(const int beg, const int size) const;
+	Payload get(const long unsigned int beg, const long unsigned int size) const;
 
 	template <typename T>
-	T get(const int beg, const int size) const;
+	T get(const long unsigned int beg, const long unsigned int size) const;
 
 	std::vector<Byte> 	get_vec() const;
 	std::string    	 	get_str() const;

@@ -54,7 +54,7 @@ void BigNum::operator=(const Payload &b_vec)
 {
 	char *c = new char[(b_vec.size() * 2) + 1];
 	int counter = 0;
-	for(int i=0;i<b_vec.size()*2;i+=2)
+	for(long unsigned int i=0;i<b_vec.size()*2;i+=2)
 	{
 		c[i] = Host::byte2ascii(b_vec.at(counter).high());
 		c[i+1] = Host::byte2ascii(b_vec.at(counter++).low());

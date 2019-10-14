@@ -36,7 +36,7 @@ Payload Host::payload_from_hex(const std::string hex_data)
 	data.reserve(hex_data.size() %2 == 0 ? hex_data.size()/2 : (hex_data.size() + 1) / 2);
 	size_t size;
 	Byte temp;
-	for(int i=0;i<hex_data.size();i+=2)
+	for(long unsigned int i=0;i<hex_data.size();i+=2)
 	{
 		temp.set(std::stoi(hex_data.substr(i, 1), &size, 16), std::stoi(hex_data.substr(i+1, 1), &size, 16));
 		data.next(temp);

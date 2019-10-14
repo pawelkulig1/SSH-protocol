@@ -56,7 +56,7 @@ ssize_t SocketClass::send(std::vector<uint8_t> data)
 ssize_t SocketClass::send(const Payload &payload)
 {
 	uint8_t *buff = new uint8_t[payload.size()];
-	for(int i=0;i<payload.size();i++)
+	for(long unsigned int i=0;i<payload.size();i++)
 	{
 		buff[i] = payload.at(i).get();
 	}
