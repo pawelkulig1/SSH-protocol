@@ -21,9 +21,9 @@ void Frame::operator=(const Payload& payload)
 
 void Frame::parse()
 {
-	packet_length 		= raw_payload.get<int>(0, 4);//Host::byte2ascii(raw_payload.get<int>(0, 4));
-	padding_size 		= raw_payload.get<int>(4, 1);
-	opcode				= raw_payload.get<int>(5, 1); 
+	packet_length 		= raw_payload.get<int>(4);//Host::byte2ascii(raw_payload.get<int>(0, 4));
+	padding_size 		= raw_payload.get<int>(1);
+	opcode				= raw_payload.get<int>(1); 
 }
 
 

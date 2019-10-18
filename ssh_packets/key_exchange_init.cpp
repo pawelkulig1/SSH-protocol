@@ -1,6 +1,8 @@
 #include "key_exchange_init.h"
 #include "../host.h"
 #include <iostream>
+#include <errno.h>
+#include <cstring>
 
 
 KeyExchangeInit::KeyExchangeInit()
@@ -16,7 +18,6 @@ KeyExchangeInit::KeyExchangeInit(std::vector<EncryptionAlgorithm> algorithms)
 
 void KeyExchangeInit::construct_payload()
 {
-
 	kex_algorithms_len = kex_algorithms.size();
 	encryption_algorithms_client_to_server_len = encryption_algorithms_client_to_server.size();
 	encryption_algorithms_server_to_client_len = encryption_algorithms_server_to_client.size();
@@ -88,24 +89,41 @@ KeyExchangeInit key_exchange_init({EncryptionAlgorithm::AES_128_CBC,
 void KeyExchangeInit::parse()
 {
 	if(raw_payload.size() == 0)
-		throw(std::system_error(std::make_error_code(std::errc::no_message), strerror(errno)));
+		throw(std::system_error(std::make_error_code(std::errc::no_message), std::strerror(errno)));
 	
-	frame::parse();
+	Frame::parse();
 	if(opcode != SSH_OPCODES::SSH_MSG_KEXINIT)
 	{
-		throw(std::system_error(std::make_error_code(std::errc:operation_not_permitted), strerror(errno)));
+		throw(std::system_error(std::make_error_code(std::errc::operation_not_permitted), std::strerror(errno)));
 	}
 
-	int counter = 6;
-	cookie 							= raw_payload.get	   	(6, temp+=16);
-	kex_algorithms_len 				= raw_payload.get<int> 	(temp, temp+=4);
-	kex_algorithms 					= raw_payload.get	   	(temp, temp+=kex_algorithms_len).get_string();
-	server_host_key_algorithms_len 	= raw_payload.get<int> 	(temp, temp+=4);
-	server_host_key_algorithms		= raw_payload.get		(temp, temp+=server_host_key_algorithms_len).get_string();
-	encryption_algorithms_client_to_server_len = raw_payload.get(temp, 
+	
+	cookie 							= raw_payload.get	   	(16);
+	kex_algorithms_len 				= raw_payload.get<int> 	(4);
+	kex_algorithms 					= raw_payload.get	   	(kex_algorithms_len).get_str();
+	
+	server_host_key_algorithms_len 	= raw_payload.get<int> 	(4);
+	server_host_key_algorithms		= raw_payload.get		(server_host_key_algorithms_len).get_str();
+	
+	encryption_algorithms_client_to_server_len = raw_payload.get<int>(4);
+   	encryption_algorithms_client_to_server = raw_payload.get(encryption_algorithms_client_to_server_len).get_str();
+	
+	encryption_algorithms_server_to_client_len = raw_payload.get<int>(4);
+	encryption_algorithms_server_to_client = raw_payload.get(encryption_algorithms_server_to_client_len).get_str();
 
 
+	mac_algorithms_client_to_server_len = raw_payload.get<int>(4);
+   	mac_algorithms_client_to_server = raw_payload.get(mac_algorithms_client_to_server_len).get_str();
 
+	mac_algorithms_server_to_client_len = raw_payload.get<int>(4);
+	mac_algorithms_server_to_client = raw_payload.get(mac_algorithms_server_to_client_len).get_str();
 
+	languages_client_to_server_len = raw_payload.get<int>(4);
+   	languages_client_to_server = raw_payload.get(languages_client_to_server_len).get_str();
 
+	languages_server_to_client_len = raw_payload.get<int>(4);
+	languages_server_to_client = raw_payload.get(languages_server_to_client_len).get_str();
+
+	first_kex_packet_follows = raw_payload.get<int>(1);
+	reserved = raw_payload.get<int>(1);
 }

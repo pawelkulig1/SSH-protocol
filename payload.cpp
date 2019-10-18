@@ -2,6 +2,8 @@
 #include "host.h"
 #include <system_error>
 
+int Payload::get_counter = 0;
+
 Payload::Payload() {}
 Payload::Payload(const Byte byte)
 {
@@ -151,11 +153,27 @@ void Payload::next(const uint8_t *c_str, const size_t size, const size_t bytes)
 	raw_payload.insert(raw_payload.end(), c_str, c_str + size);	
 }
 
+Payload Payload::remove(const long unsigned int beg, const long unsigned int size) const
+{
+	if(beg + size > raw_payload.size())
+		std::cout<<"Payload::remove "<< beg << " " << size << " " << raw_payload.size() << std::endl;
+		//TODO throw expection	
+	Payload temp;
+	temp.next(get(0, beg));
+	temp.next(get(beg+size, this->size()));
+}
+
 Payload Payload::get(const long unsigned int beg, const long unsigned int size) const
 {
 	return Payload(raw_payload.begin() + beg, raw_payload.begin() + beg + size);
 }
 
+Payload Payload::get(const long unsigned int size) const
+{
+	Payload temp = get(get_counter, size); 
+	get_counter += size;
+	return temp;
+}
 
 template <>
 int Payload::get<int>(const long unsigned int beg, const long unsigned int size) const
@@ -172,6 +190,14 @@ int Payload::get<int>(const long unsigned int beg, const long unsigned int size)
 	{
 		temp |= (raw_payload[i].get() << (beg + size - i - 1) * 8);
 	}
+	return temp;
+}
+
+template <>
+int Payload::get<int>(const long unsigned int size) const
+{
+	int temp = get<int>(get_counter, size);
+	get_counter += size;
 	return temp;
 }
 

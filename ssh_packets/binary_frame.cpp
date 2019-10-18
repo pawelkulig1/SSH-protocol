@@ -23,7 +23,7 @@ void BinaryFrame::construct_payload()
 	frame.next(ptr[1]);
 	frame.next(ptr[2]);
 	frame.next(ptr[3]);
-	frame.next(padding_length);
+	frame.next(padding_size);
 	frame.next(payload);
 	frame.next(random_padding);
 	frame.next(mac);

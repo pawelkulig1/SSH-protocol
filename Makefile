@@ -27,7 +27,7 @@ VPATH=	ssh_packets/ \
 		tests/ \
 		encryption/
 	
-CXXFLAGS=--std=c++11 -Wall -L/usr/local/opt/openssl/lib -I/usr/local/opt/openssl/include -lcrypto -g
+CXXFLAGS=--std=c++11 -Wall -L/usr/local/opt/openssl/lib -I/usr/local/opt/openssl/include -lcrypto
 
 
 CXX=g++
