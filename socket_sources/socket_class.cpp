@@ -76,6 +76,7 @@ Payload SocketClass::recv()
 	void *buffer = new uint8_t[buffer_size];
 	ssize_t size = ::recv(sock, buffer, buffer_size, 0);
 	uint8_t *buff_ptr = reinterpret_cast<uint8_t*>(buffer);
+
 	Payload p = Payload(buff_ptr, size);
 	//std::vector<uint8_t> ret_vec(buff_ptr, buff_ptr + size);
 

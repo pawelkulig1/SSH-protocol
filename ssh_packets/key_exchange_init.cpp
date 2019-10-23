@@ -13,7 +13,7 @@ KeyExchangeInit::KeyExchangeInit()
 KeyExchangeInit::KeyExchangeInit(std::vector<EncryptionAlgorithm> algorithms)
 {
 	cookie = Host::random_hex(16);
-	set_requested_algorithms(algorithms);
+	//set_requested_algorithms(algorithms);
 }
 
 void KeyExchangeInit::construct_payload()
@@ -62,13 +62,13 @@ void KeyExchangeInit::construct_payload()
 
 	payload.next(first_kex_packet_follows, 1);
 
-	payload.next(reserved, 4);
+	payload.next(reserved, 4); 
 }
 
 void KeyExchangeInit::set_requested_algorithms(std::vector<EncryptionAlgorithm> requested_algorithms)
 {
-	this->requested_algorithms = requested_algorithms;
-	construct_payload();
+	//this->requested_algorithms = requested_algorithms;
+	//construct_payload();
 }
 
 std::vector<EncryptionAlgorithm> KeyExchangeInit::get_requested_algorithms() const
@@ -98,32 +98,32 @@ void KeyExchangeInit::parse()
 	}
 
 	
-	cookie 							= raw_payload.get	   	(16);
-	kex_algorithms_len 				= raw_payload.get<int> 	(4);
-	kex_algorithms 					= raw_payload.get	   	(kex_algorithms_len).get_str();
+	/*cookie 							= raw_payload.get_payload	   	(16);
+	kex_algorithms_len 				= raw_payload.get_int 	(4);
+	kex_algorithms 					= raw_payload.get_payload	   	(kex_algorithms_len).get_str();
 	
-	server_host_key_algorithms_len 	= raw_payload.get<int> 	(4);
-	server_host_key_algorithms		= raw_payload.get		(server_host_key_algorithms_len).get_str();
+	server_host_key_algorithms_len 	= raw_payload.get_int 	(4);
+	server_host_key_algorithms		= raw_payload.get_payload		(server_host_key_algorithms_len).get_str();
 	
-	encryption_algorithms_client_to_server_len = raw_payload.get<int>(4);
-   	encryption_algorithms_client_to_server = raw_payload.get(encryption_algorithms_client_to_server_len).get_str();
+	encryption_algorithms_client_to_server_len = raw_payload.get_int(4);
+   	encryption_algorithms_client_to_server = raw_payload.get_payload(encryption_algorithms_client_to_server_len).get_str();
 	
-	encryption_algorithms_server_to_client_len = raw_payload.get<int>(4);
-	encryption_algorithms_server_to_client = raw_payload.get(encryption_algorithms_server_to_client_len).get_str();
+	encryption_algorithms_server_to_client_len = raw_payload.get_int(4);
+	encryption_algorithms_server_to_client = raw_payload.get_payload(encryption_algorithms_server_to_client_len).get_str();
 
 
-	mac_algorithms_client_to_server_len = raw_payload.get<int>(4);
-   	mac_algorithms_client_to_server = raw_payload.get(mac_algorithms_client_to_server_len).get_str();
+	mac_algorithms_client_to_server_len = raw_payload.get_int(4);
+   	mac_algorithms_client_to_server = raw_payload.get_payload(mac_algorithms_client_to_server_len).get_str();
 
-	mac_algorithms_server_to_client_len = raw_payload.get<int>(4);
-	mac_algorithms_server_to_client = raw_payload.get(mac_algorithms_server_to_client_len).get_str();
+	mac_algorithms_server_to_client_len = raw_payload.get_int(4);
+	mac_algorithms_server_to_client = raw_payload.get_payload(mac_algorithms_server_to_client_len).get_str();
 
-	languages_client_to_server_len = raw_payload.get<int>(4);
-   	languages_client_to_server = raw_payload.get(languages_client_to_server_len).get_str();
+	languages_client_to_server_len = raw_payload.get_int(4);
+   	languages_client_to_server = raw_payload.get_payload(languages_client_to_server_len).get_str();
 
-	languages_server_to_client_len = raw_payload.get<int>(4);
-	languages_server_to_client = raw_payload.get(languages_server_to_client_len).get_str();
+	languages_server_to_client_len = raw_payload.get_int(4);
+	languages_server_to_client = raw_payload.get_payload(languages_server_to_client_len).get_str();
 
-	first_kex_packet_follows = raw_payload.get<int>(1);
-	reserved = raw_payload.get<int>(1);
+	first_kex_packet_follows = raw_payload.get_int(1);
+	reserved = raw_payload.get_int(1);*/
 }

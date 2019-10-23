@@ -1,15 +1,15 @@
 O_FILES=    socket_class.o \
 			host.o \
+			byte.o \
+			payload.o \
 			encryption.o \
 			frame.o \
 			binary_frame.o \
 			protocol_exchange.o \
-			key_exchange_init.o \
+			dh.o \
 			encryption_aes128.o \
-			payload.o \
-			byte.o \
 			big_num.o \
-			dh.o
+			#key_exchange_init.o \
 
 			
 TEST_FILES=	tests/test_host.o \

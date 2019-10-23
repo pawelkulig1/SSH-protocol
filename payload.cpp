@@ -15,20 +15,20 @@ Payload::Payload(const Byte byte, const size_t bytes)
 	next(byte, bytes);
 }
 
-Payload::Payload(const std::vector<Byte>& byte_vec)
-{
-	next(byte_vec);
-}
+//Payload::Payload(const std::vector<Byte>& byte_vec)
+//{
+//	next(byte_vec);
+//}
 
 Payload::Payload(const std::vector<Byte>& byte_vec, const size_t bytes)
 {
 	next(byte_vec, bytes);
 }
 
-Payload::Payload(const Payload& payload)
-{
-	raw_payload = payload.raw_payload;
-}
+//Payload::Payload(const Payload& payload)
+//{
+//	raw_payload = payload.raw_payload;
+//}
 
 Payload::Payload(const Payload& payload, const size_t bytes)
 {
@@ -49,11 +49,11 @@ Payload::Payload(const uint8_t *c_str, size_t size)
 {
 	next(c_str, size);
 }
-
-Payload::Payload(const uint8_t *c_str, const size_t bytes, const size_t size)
-{
-	next(c_str, size, bytes);
-}
+//
+//Payload::Payload(const uint8_t *c_str, const size_t bytes, const size_t size)
+//{
+//	next(c_str, size, bytes);
+//}
 
 Payload::Payload(const std::vector<Byte>::const_iterator beg, const std::vector<Byte>::const_iterator end)
 {
@@ -88,16 +88,16 @@ void Payload::next_zeros(const size_t bytes)
 	}
 }
 
-void Payload::next(const uint32_t data, const size_t bytes)
-{
-	next_zeros(bytes - 4);
-	raw_payload.insert(raw_payload.end(), &data, &data + 4);
-}
+//void Payload::next(const uint32_t data, const size_t bytes)
+//{
+//	next_zeros(bytes - 4);
+//	raw_payload.insert(raw_payload.end(), &data, &data + 4);
+//}
 
-void Payload::next(const Byte byte)
-{
-	raw_payload.push_back(byte);
-}
+//void Payload::next(const Byte byte)
+//{
+//	raw_payload.push_back(byte);
+//}
 
 void Payload::next(const Byte byte, const size_t bytes)
 {
@@ -106,10 +106,10 @@ void Payload::next(const Byte byte, const size_t bytes)
 	raw_payload.push_back(byte);
 }
 
-void Payload::next(const std::vector<Byte>& vec)
-{
-	raw_payload.insert(raw_payload.end(), vec.begin(), vec.end());
-}
+//void Payload::next(const std::vector<Byte>& vec)
+//{
+//	raw_payload.insert(raw_payload.end(), vec.begin(), vec.end());
+//}
 
 void Payload::next(const std::vector<Byte>& vec, const size_t bytes)
 {
@@ -131,10 +131,10 @@ void Payload::next(const std::string& str, const size_t bytes, bool ascii)
 	next(ascii ? Host::payload_from_ascii(str) : Host::payload_from_hex(str));
 }
 
-void Payload::next(const Payload& payload)
-{
-	next(payload.raw_payload);
-}
+//void Payload::next(const Payload& payload)
+//{
+//	next(payload.raw_payload);
+//}
 
 void Payload::next(const Payload& payload, const size_t bytes)
 {
@@ -146,12 +146,12 @@ void Payload::next(const uint8_t *c_str, const size_t size)
 {
 	raw_payload.insert(raw_payload.end(), c_str, c_str + size);	
 }
-
-void Payload::next(const uint8_t *c_str, const size_t size, const size_t bytes)
-{
-	next_zeros(bytes - size);
-	raw_payload.insert(raw_payload.end(), c_str, c_str + size);	
-}
+//
+//void Payload::next(const uint8_t *c_str, const size_t size, const size_t bytes)
+//{
+//	next_zeros(bytes - size);
+//	raw_payload.insert(raw_payload.end(), c_str, c_str + size);	
+//}
 
 Payload Payload::remove(const long unsigned int beg, const long unsigned int size) const
 {
@@ -168,15 +168,15 @@ Payload Payload::get(const long unsigned int beg, const long unsigned int size) 
 	return Payload(raw_payload.begin() + beg, raw_payload.begin() + beg + size);
 }
 
-Payload Payload::get(const long unsigned int size) const
+Payload Payload::get_payload(const long unsigned int size) const
 {
 	Payload temp = get(get_counter, size); 
 	get_counter += size;
 	return temp;
 }
 
-template <>
-int Payload::get<int>(const long unsigned int beg, const long unsigned int size) const
+//template <>
+int Payload::get_int(const long unsigned int beg, const long unsigned int size) const
 {
 	if(size > 4){}
 		//throw(); //TODO
@@ -193,10 +193,10 @@ int Payload::get<int>(const long unsigned int beg, const long unsigned int size)
 	return temp;
 }
 
-template <>
-int Payload::get<int>(const long unsigned int size) const
+//template <>
+int Payload::get_int(const long unsigned int size) const
 {
-	int temp = get<int>(get_counter, size);
+	int temp = get_int(get_counter, size);
 	get_counter += size;
 	return temp;
 }
